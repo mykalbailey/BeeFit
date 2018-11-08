@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "396020190231",
+    "firebase_url": "https://beefiteats-bfe84.firebaseio.com",
+    "project_id": "beefiteats-bfe84",
+    "storage_bucket": "beefiteats-bfe84.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396020190231:android:4f8167c946d4b950",
+        "android_client_info": {
+          "package_name": "rasbeeco.beefiteats"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396020190231-n2jem8je4b0kv9tg7jsmos33o687q5ja.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "rasbeeco.beefiteats",
+            "certificate_hash": "747ccada21d74c676755360baff00c6ad1969429"
+          }
+        },
+        {
+          "client_id": "396020190231-1o95cdr8qnj2vjdve0alu2ldjle9kk13.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcSFtVMbY24ZJmPmLA9WKzHQRy42gM8Hg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396020190231-1o95cdr8qnj2vjdve0alu2ldjle9kk13.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

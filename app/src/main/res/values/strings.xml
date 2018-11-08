@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">BeeFitEats</string>
+    <string name="title_diary">Diary</string>
+    <string name="title_progress">Progress</string>
+    <string name="title_profile">Profile</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="beefitlogo">beefitlogo</string>
+    <string name="signup">Sign Up</string>
+    <string name="login">Login</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="date">date</string>
+    <string name="left">left</string>
+    <string name="right">right</string>
+
+
+
+    <string name="Fname">Food Name: </string>
+    <string name="ssize">Serving Size: </string>
+    <string name="noserv">Number of Servings: </string>
+    <string name="fats">Fat(g): </string>
+    <string name="prots">Protein(g): </string>
+    <string name="carbs">Carbohydrates(g): </string>
+    <string name="notes">Notes: </string>
+    <string name="AddFood">Add Food</string>
+
+</resources>
