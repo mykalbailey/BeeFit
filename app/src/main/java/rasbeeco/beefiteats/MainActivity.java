@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -94,14 +95,16 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.add_food) {
-            addFood();
-        }
         if (id == R.id.action_settings) {
             openSettings();
         }
         if (id == R.id.action_quit) {
             //android.os.Process.killProcess(android.os.Process.myPid());
+            finishAndRemoveTask();
+        }
+        if (id == R.id.action_logout){
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            mAuth.signOut();
             finishAndRemoveTask();
         }
 

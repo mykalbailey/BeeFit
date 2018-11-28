@@ -1,5 +1,6 @@
 package rasbeeco.beefiteats;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,11 +8,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,12 +30,6 @@ public class diaryFragment extends android.support.v4.app.Fragment {
 
     private View myFragView;
     private diaryArrayAdapter mAdapter;
-    String[] titles = {"Breakfast","Lunch","Dinner","Snacks"};
-    String[] items ={"Eggs","Sandwich","Steak Dinner","Chocolate Chip Cookie","Chips"};
-    String[] bfast = {"Eggs"};
-    String[] lnch = {"Sandwich"};
-    String[] dnnr = {"Steak Dinner"};
-    String[] sncks = {"Chocolate Chip Cookie","Chips"};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,60 +47,43 @@ public class diaryFragment extends android.support.v4.app.Fragment {
 
         ListView lv = (ListView) myFragView.findViewById(R.id.diaryListView);
 
+        //TODO:Following line creates diary listview navigator:
+        /*
+        LayoutInflater li = getLayoutInflater();
+        ViewGroup myHeader = (ViewGroup)li.inflate(R.layout.diaryheader, lv, false);
+        lv.addHeaderView(myHeader, null, false);
+        */
         int headerCount = 0;
 
         mAdapter = new diaryArrayAdapter(getActivity());
+        mAdapter.OragnizeData();
 
-        mAdapter.addSectionHeaderItem("Breakfast");
-        for(int i = 0; i < bfast.length; i++){
-            mAdapter.addItem(bfast[i]);
-        }
-        //mAdapter.addItem("Add Food");
-        mAdapter.addSectionHeaderItem("Lunch");
-        for(int i = 0; i < lnch.length; i++){
-            mAdapter.addItem(lnch[i]);
-        }
-        //mAdapter.addItem("Add Food");
-        mAdapter.addSectionHeaderItem("Dinner");
-        for(int i = 0; i < dnnr.length; i++){
-            mAdapter.addItem(dnnr[i]);
-        }
-        //mAdapter.addItem("Add Food");
-        mAdapter.addSectionHeaderItem("Snacks");
-        for(int i = 0; i < sncks.length; i++){
-            mAdapter.addItem(sncks[i]);
-        }
-        //mAdapter.addItem("Add Food");
-
-        /*
-        for(int i = 0; i < titles.length; i++){
-            for(int k = 0; k < bfast.length; k++){
-
-            }
-        }
-
-        for (int i = 0; i < items.length; i++) {
-
-            if (headerCount < 4) {
-                mAdapter.addSectionHeaderItem(titles[headerCount]);
-
-                headerCount++;
-            }
-            mAdapter.addItem(items[i]);
-            if(i < items.length){
-                mAdapter.addItem("Add Food");
-            }
-        }
         lv.setAdapter(mAdapter);
-        */
-        lv.setAdapter(mAdapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(mAdapter.getItemViewType(position) == 0){
 
-        dref= FirebaseDatabase.getInstance().getReference("User1");
+                }else if(mAdapter.getItemViewType(position) == 2){
+                    addFood(mAdapter.getItem(position).organize);
+                }else{
+                    return;
+                }
+            }
+        });
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        dref= FirebaseDatabase.getInstance().getReference(currentUser.getUid()).child("foods");
         dref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                mAdapter.addItem(dataSnapshot.child("fname").getValue().toString());
-                mAdapter.notifyDataSetChanged();
+                System.out.println(dataSnapshot.toString());
+                DiaryObject DO = new DiaryObject(dataSnapshot);
+                mAdapter.addItem(DO);
+                mAdapter.OragnizeData();
+                //mAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -125,29 +108,13 @@ public class diaryFragment extends android.support.v4.app.Fragment {
         });
         return myFragView;
     }
+    protected void addFood(String mtype){
+        Intent intent = new Intent(myFragView.getContext(), AddFood.class);
+        intent.putExtra("mtype", mtype);
+        startActivity(intent);
+    }
 
 
-    /*public void addTitles(ListView lv){
-        for(int i=0;i<titles.length;i++){
-            TableRow row = new TableRow(getActivity());
-            Resources resource = getActivity().getResources();
-            row.setBackgroundColor(Color.YELLOW);
-            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
-            //lp.height = 100;
-            //row.setMinimumHeight(30);
-            //row.setLayoutParams(lp);
 
-
-            TextView title = new TextView(getActivity());
-            title.setText(titles[i]);
-            title.setTextColor(Color.BLACK);
-            title.setTextSize(24);
-
-            row.addView(title);
-
-            lv.addView(row);
-        }
-
-    }*/
 
 }

@@ -105,5 +105,10 @@ class progressArrayAdapter extends BaseAdapter { {
         public TextView textView2;
         public TextView textView3;
     }
+    public void clearAdapter()
+    {
+        mData.clear();
+        notifyDataSetChanged();
+    }
 
 }

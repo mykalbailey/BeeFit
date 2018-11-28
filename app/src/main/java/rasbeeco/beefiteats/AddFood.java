@@ -8,8 +8,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddFood extends AppCompatActivity {
 
@@ -28,6 +36,7 @@ public class AddFood extends AppCompatActivity {
             }
         });
 
+
     }
     protected void AddNewFood(){
         EditText[] fields = getFields();
@@ -35,24 +44,51 @@ public class AddFood extends AppCompatActivity {
 
             //TODO: Find better way to organize user data
 
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+
             //newFood food = new newFood();
 
             Toast.makeText(this, fields[0].getText().toString(), Toast.LENGTH_SHORT).show();
             //Log.d("fname",food.fname);
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("User1");
+            DatabaseReference myRef = database.getReference(currentUser.getUid()).child("foods");
 
-            //myRef.setValue(fields[0].getText().toString());
+            String[] date = getDate();
+            String mType= getIntent().getStringExtra("mtype");
+            System.out.println("Meal type: " + mType);
+
             DatabaseReference myRef2 =  myRef.child(fields[0].getText().toString());
+
+            Map<String,Object> taskMap = new HashMap<>();
+            taskMap.put("fname", fields[0].getText().toString());
+            taskMap.put("ssize", fields[1].getText().toString());
+            taskMap.put("nserv", fields[1].getText().toString());
+            taskMap.put("fats", fields[1].getText().toString());
+            taskMap.put("prots", fields[1].getText().toString());
+            taskMap.put("carbs", fields[1].getText().toString());
+            taskMap.put("date", getDate2());
+            taskMap.put("mtype", mType.toString());
+
+            myRef2.updateChildren(taskMap);
+            finish();
+
+            //taskMap.put("notes", fields[6].getText().toString());
+            //myRef.setValue(fields[0].getText().toString());
+            //DatabaseReference myRef2 =  myRef.child(date[0]).child(date[1]).child(date[2]).child(fields[0].getText().toString());
+
+            /*DatabaseReference myRef2 =  myRef.child(fields[0].getText().toString());
             myRef2.child("fname").setValue(fields[0].getText().toString());
             myRef2.child("ssize").setValue(fields[1].getText().toString());
             myRef2.child("nserv").setValue(fields[2].getText().toString());
             myRef2.child("fats").setValue(fields[3].getText().toString());
             myRef2.child("prots").setValue(fields[4].getText().toString());
             myRef2.child("carbs").setValue(fields[5].getText().toString());
+            myRef2.child("date").setValue(getDate2());
+            myRef2.child("mtype").setValue(mType.toString());
             //myRef.child("notes").setValue(fields[6].getText().toString());
-            finish();
+            finish();*/
         }
     }
     //makes sure form is filled out
@@ -95,5 +131,21 @@ public class AddFood extends AppCompatActivity {
             this.carbs = fields[5].getText().toString();
             this.notes = fields[6].getText().toString();
         }
+    }
+    private String[] getDate(){
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MMM-dd");
+        String formattedDate = df.format(date);
+
+        String[] dp = formattedDate.split("-");
+
+        return dp;
+    }
+    private String getDate2(){
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MMM-dd");
+        String formattedDate = df.format(date);
+
+        return formattedDate;
     }
 }
