@@ -1,14 +1,22 @@
-# Project Title
+# Assignment 3 - Topic: ViewSwitcher 
 
-One Paragraph of project description goes here
+Viewswitcher is a subclass of Viewanimator which is used to switch between views. It is mainly useful for animating transitions on the screen.  View Switcher has a smooth transition which makes it easy to add different transitions effects.
 
-## Getting Started
+## History
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+The viewSwitcher class was added in the very first Api level 1.  It is in the Java.lang.obj package.
 
-### Prerequisites
+## Major Methods
 
-What things you need to install the software and how to install them
+The following creates a new empty viewSwitcher.
+ViewSwitcher(Context context)
+The following creates a viewSwitcher for given context and specific attribute set.
+ViewSwitcher(Context context, AttributeSet attrs)
+The following method adds a view to the viewSwitcher with layout parameters.
+addView(View child, int index, ViewGroup.LayoutParamsparams)
+the following method returns the view that is to be viewed next.
+getNextView()
+
 
 ```
 Give examples
