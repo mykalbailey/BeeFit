@@ -9,34 +9,26 @@ The viewSwitcher class was added in the very first Api level 1.  It is in the Ja
 ## Major Methods
 
 The following creates a new empty viewSwitcher.
+```
 ViewSwitcher(Context context)
+```
 The following creates a viewSwitcher for given context and specific attribute set.
+```
 ViewSwitcher(Context context, AttributeSet attrs)
+```
 The following method adds a view to the viewSwitcher with layout parameters.
+```
 addView(View child, int index, ViewGroup.LayoutParamsparams)
+```
 the following method returns the view that is to be viewed next.
+```
 getNextView()
-
-
 ```
-Give examples
-```
+## How to implement
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
+1.	Create xml file with view switcher view and set id and parameters.
+2.	In the activity you plan on using to implement this, create reference to the view switcher with the findViewById() method.
+3.	Set a factory by using the setFactoryId() method.
 
 End with an example of getting some data out of the system or using it for a little demo
 
