@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 ```
 Results:
 
-![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+![Alt Text](https://raw.githubusercontent.com/mykalbailey/BeeFit/master/ViewSwitcherDemo/ViewSwitcherGif.gif)
 
 ## Authors
 
