@@ -27,9 +27,14 @@ getNextView()
 
 ## How to implement
 
-1.	Create xml file with view switcher view and set id and parameters.
-2.	In the activity you plan on using to implement this, create reference to the view switcher with the findViewById() method.
-3.	Set a factory by using the setFactoryId() method.
+1.	Create xml file with SwitcherView.
+2.	Add up to two views in the SwitcherView.
+3.	In order to recall these views in the Java Activity you must set reference Ids for the Switcher and the Views added.
+4.	In the Main activity create references to the SwitcherView and views it contains.
+5.	Implement a method of switching views (ie. a button).
+6.	Use the SwitcherView method showNext() or showPrevious() to switch between the views added.
+7.	The default SwitcherView transition is smooth.  Optionally you can set transition animations by calling the method SetInAnimation() or SetOutAnimation().  You can refer to Android Animations Library to view and test different transition animations.
+
 
 ## Code
 
@@ -66,7 +71,6 @@ activity_main.xml
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="ToggleButton" />
-
         </ViewSwitcher>
 
         <Button
@@ -76,7 +80,8 @@ activity_main.xml
             android:layout_weight="1"
             android:text="Switch View"
             tools:layout_editor_absoluteX="296dp" />
-    </LinearLayout>
+
+</LinearLayout>
 ```
 MainActiity.java
 ```
