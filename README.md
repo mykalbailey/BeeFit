@@ -33,7 +33,78 @@ getNextView()
 
 ## Code
 
-Explain how to run the automated tests for this system
+ViewSwitcherDemo:
+
+activity_main.xml
+```
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ViewSwitcher
+            android:id="@+id/viewSwitcher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:gravity="center" />
+
+            <ToggleButton
+                android:id="@+id/toggleButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="ToggleButton" />
+
+        </ViewSwitcher>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Switch View"
+            tools:layout_editor_absoluteX="296dp" />
+    </LinearLayout>
+```
+MainActiity.java
+```
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Button button = findViewById(R.id.button);
+        final ViewSwitcher viewSwitcher = findViewById(R.id.viewSwitcher);
+        final TextView textView = findViewById(R.id.textView);
+
+        //On click listener to switch between views.
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(viewSwitcher.getCurrentView() == textView){
+                    viewSwitcher.showNext();
+                }else{
+                    viewSwitcher.showPrevious();
+                }
+            }
+        });
+    }
+}
+```
 
 ## Authors
 
