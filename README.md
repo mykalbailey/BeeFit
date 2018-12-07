@@ -1,10 +1,10 @@
 # Assignment 3 - Topic: ViewSwitcher 
 
-Viewswitcher is a subclass of Viewanimator which is used to switch between views. It is mainly useful for animating transitions on the screen.  View Switcher has a smooth transition which makes it easy to add transitions effects.  
+Viewswitcher is a Widget in the subclass of Viewanimator which is used to switch between views. It is most useful for animating transitions on the screen.  View Switcher has a sa default smooth transition but animations can be added optionally.  
 
 ## History
 
-The viewSwitcher class was added in the very first Api level 1.  It is in the Java.lang.obj package.
+The viewSwitcher class was added in the very first Api level 1.  It is in the Java.lang.obj package.  This means the Widget as been around for a very long time.
 
 ## Major Methods
 
@@ -116,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 Results:
+Switching between Textview and ToggleButton with the click of a button.
 
 ![Alt Text](https://raw.githubusercontent.com/mykalbailey/BeeFit/master/ViewSwitcherDemo/ViewSwitcherGif.gif)
 
