@@ -2,11 +2,13 @@ package rasbeeco.beefiteats;
 
 import com.google.firebase.database.DataSnapshot;
 
+import java.io.Serializable;
+
 /**
  * Created by rasb on 2018-11-27.
  */
 
-public class DiaryObject {
+public class DiaryObject implements Serializable{
     String fname;
     int sSize;
     int noServ;
@@ -17,9 +19,11 @@ public class DiaryObject {
     String notes;
     String date;
     String organize;
+    String time;
 
   DiaryObject(Object oj){
       if(oj.getClass() == DataSnapshot.class) {
+
           DataSnapshot dataSnapshot = (DataSnapshot) oj;
           fname = dataSnapshot.child("fname").getValue().toString();
           mType = dataSnapshot.child("mtype").getValue().toString();
@@ -30,6 +34,7 @@ public class DiaryObject {
           prots = Integer.parseInt(dataSnapshot.child("prots").getValue().toString());
           //notes=dataSnapshot.child("notes").getValue().toString();
           date = dataSnapshot.child("date").getValue().toString();
+          time = dataSnapshot.child("time").getValue().toString();
       }else if(oj.getClass() == String.class){
           fname = oj.toString();
           //organize= "String";
@@ -43,11 +48,13 @@ public class DiaryObject {
       }*/
   }
   public void fromObject(Object oj){
-      if(oj.getClass() == DataSnapshot.class);
+      if(oj.getClass() == DataSnapshot.class){
+
+      };
   }
 
   public String toString(){
-      String str = fname + ", " + mType + ", " + sSize;
+      String str = fname + ", " + mType + ", " + sSize+ ", " + noServ+ ", " + fats+ ", " + prots+ ", " + carbs+ ", " + date+ ", " + time;
       return str;
   }
 

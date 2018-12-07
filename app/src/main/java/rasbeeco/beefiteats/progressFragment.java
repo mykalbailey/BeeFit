@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TableRow;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -65,6 +66,9 @@ public class progressFragment extends android.support.v4.app.Fragment {
         lv.setAdapter(mAdapter);
 
         setUpPie();
+
+        TableRow navigator = myFragView.findViewById(R.id.ProgressNavigate);
+        navigator.setVisibility(View.GONE);
 
         return myFragView;
     }
@@ -126,9 +130,9 @@ public class progressFragment extends android.support.v4.app.Fragment {
 
             }
         });
-        pCarbs = pCarbs + 2;
-        pFats = pFats + 2;
-        pProts = pProts + 3;
+        //pCarbs = pCarbs + 2;
+        //pFats = pFats + 2;
+        //pProts = pProts + 3;
         setData();/*
         entries.add(new PieEntry(pFats, "Fats"));
         entries.add(new PieEntry(pCarbs, "Carbs"));
@@ -160,6 +164,8 @@ public class progressFragment extends android.support.v4.app.Fragment {
         pChart.setUsePercentValues(false);
         pChart.setClickable(false);
         pChart.setDescription(null);
+
+        pChart.setNoDataText("No Data");
 
         PieDataSet set = new PieDataSet(entries, "");
         set.setColors(ColorTemplate.VORDIPLOM_COLORS);

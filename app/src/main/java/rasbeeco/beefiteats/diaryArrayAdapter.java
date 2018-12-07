@@ -191,5 +191,8 @@ class diaryArrayAdapter extends BaseAdapter {
         sectionHeader.clear();
         aFoodButton.clear();
     }
+    public DiaryObject getDataObj(int position){
+        return mData.get(position);
+    }
 
 }

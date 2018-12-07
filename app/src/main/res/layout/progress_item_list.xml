@@ -12,20 +12,23 @@
             android:id="@+id/macro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="3"/>
+            android:layout_weight="3"
+            android:textSize="25sp"/>
 
         <TextView
             android:id="@+id/currentp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textSize="25sp"/>
 
         <TextView
             android:id="@+id/goalp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textSize="25sp"/>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

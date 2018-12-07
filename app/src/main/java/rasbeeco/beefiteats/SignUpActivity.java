@@ -1,74 +1,99 @@
 package rasbeeco.beefiteats;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.text.InputType;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    private View SignUpView;
+    public static SignUpActivity instance = null;
 
-    private FirebaseAuth mAuth;
-    private SignUpArrayAdapter sAdapter;
-    String[] creds = {"First Name","Last Name","Email","Password","Confirm","Current Weight","Goal","Goal Weight","Birth Date"};
+    Map<String, String> creds2 = new HashMap<String, String>();
+    //String[] creds2 = {"Current Weight","Goal","GWeight"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme_NoActionBar);
-
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_sign_up);
+        instance=this;
 
-        mAuth = FirebaseAuth.getInstance();
+        //SetUp(creds1);
 
-        ListView lv = findViewById(R.id.signUpListView);
+        Button next = findViewById(R.id.SignUpNext);
 
-        ArrayList<String> list = new ArrayList<String>();
-        list.add("teser");
-        sAdapter = new SignUpArrayAdapter(this,R.layout.signup_textedit,list);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Next();
+            }
+        });
 
-        //sAdapter.notifyDataSetChanged();
-
-        lv.setAdapter(sAdapter);
     }
-
-
-    public void Signup(){
-        /*EditText usr = findViewById(R.id.sUser);
-        EditText pss1 = findViewById(R.id.sPass1);
-        EditText pss2 = findViewById(R.id.sPass2);
-
-        String email = usr.getText().toString();
-        String pass1 = pss1.getText().toString();
-        String pass2 = pss2.getText().toString();
-
-        if(pass1.equals(pass2)){
-            mAuth.createUserWithEmailAndPassword(email,pass1).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    success();
-                }
-            });
+    private void Next(){
+        if(getCreds()){
+            Intent intent = new Intent(this, SignUpActivity2.class);
+            for(Map.Entry<String, String> cred : creds2.entrySet()){
+                intent.putExtra(cred.getKey(),cred.getValue());
+            }
+            startActivity(intent);
         }
-        */
     }
 
-    public void success(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+    private boolean getCreds(){
+        EditText etFname = findViewById(R.id.etFname);
+        EditText etLname = findViewById(R.id.etLname);
+        EditText etEmail = findViewById(R.id.etEmail);
+        EditText etPass = findViewById(R.id.etPass);
+        EditText etConf = findViewById(R.id.etConf);
+        EditText etDOB = findViewById(R.id.etDOB);
+
+        String[] creds1= {"First Name","Last Name","Email","Password","Confirm","Birth Date"};
+
+        List<EditText> input = new ArrayList<EditText>();
+        input.add(etFname);
+        input.add(etLname);
+        input.add(etEmail);
+        input.add(etPass);
+        input.add(etConf);
+        input.add(etDOB);
+
+        boolean comp = true;
+        creds2.clear();
+
+        for(int i = 0;i<input.size();i++){
+            if(input.get(i).getText().toString().equals("")){
+                Toast.makeText(this, (String)creds1[i] + " field is empty",
+                        Toast.LENGTH_LONG).show();
+                comp=false;
+                continue;
+            }
+            else{
+                creds2.put(creds1[i],input.get(i).getText().toString());
+            }
+        }
+        if(!etPass.getText().toString().equals(etConf.getText().toString())){
+            Toast.makeText(this, " passwords are not matching",
+                    Toast.LENGTH_LONG).show();
+            comp=false;
+        }
+        return comp;
+    }
+    @Override
+    public void finish() {
+        super.finish();
+        instance = null;
     }
 }

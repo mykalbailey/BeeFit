@@ -29,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //if(LoginActivity.instance != null){
+            //LoginActivity.instance.finish();
+        //}
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -119,6 +123,13 @@ public class MainActivity extends AppCompatActivity {
     protected void addFood(){
         Intent intent = new Intent(this, AddFood.class);
         startActivity(intent);
+    }
+    @Override
+    public void onBackPressed() {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        if(mAuth.getCurrentUser() != null){
+
+        }
     }
 
 }

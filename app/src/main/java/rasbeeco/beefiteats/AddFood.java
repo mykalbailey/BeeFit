@@ -1,5 +1,6 @@
 package rasbeeco.beefiteats;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,8 +11,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,6 +24,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AddFood extends AppCompatActivity {
+
+    DatabaseReference Ref;
+    String fname;
+    boolean doesExist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,53 +50,72 @@ public class AddFood extends AppCompatActivity {
         EditText[] fields = getFields();
         if(Verify(fields)){
 
-            //TODO: Find better way to organize user data
 
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             FirebaseUser currentUser = mAuth.getCurrentUser();
 
-            //newFood food = new newFood();
-
-            Toast.makeText(this, fields[0].getText().toString(), Toast.LENGTH_SHORT).show();
-            //Log.d("fname",food.fname);
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference(currentUser.getUid()).child("foods");
+            Ref = database.getReference(currentUser.getUid());
+            DatabaseReference myRef = Ref.child("foods");
 
             String[] date = getDate();
             String mType= getIntent().getStringExtra("mtype");
             System.out.println("Meal type: " + mType);
 
-            DatabaseReference myRef2 =  myRef.child(fields[0].getText().toString());
+            DatabaseReference preload = Ref.child("preload");
 
-            Map<String,Object> taskMap = new HashMap<>();
-            taskMap.put("fname", fields[0].getText().toString());
-            taskMap.put("ssize", fields[1].getText().toString());
-            taskMap.put("nserv", fields[1].getText().toString());
-            taskMap.put("fats", fields[1].getText().toString());
-            taskMap.put("prots", fields[1].getText().toString());
-            taskMap.put("carbs", fields[1].getText().toString());
-            taskMap.put("date", getDate2());
-            taskMap.put("mtype", mType.toString());
+            doesExist = false;
 
-            myRef2.updateChildren(taskMap);
-            finish();
+            this.fname = fields[0].getText().toString();
 
-            //taskMap.put("notes", fields[6].getText().toString());
-            //myRef.setValue(fields[0].getText().toString());
-            //DatabaseReference myRef2 =  myRef.child(date[0]).child(date[1]).child(date[2]).child(fields[0].getText().toString());
+            preload.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.toString().equals(fname.toString())){
+                        doesExist = true;
+                    }
+                }
 
-            /*DatabaseReference myRef2 =  myRef.child(fields[0].getText().toString());
-            myRef2.child("fname").setValue(fields[0].getText().toString());
-            myRef2.child("ssize").setValue(fields[1].getText().toString());
-            myRef2.child("nserv").setValue(fields[2].getText().toString());
-            myRef2.child("fats").setValue(fields[3].getText().toString());
-            myRef2.child("prots").setValue(fields[4].getText().toString());
-            myRef2.child("carbs").setValue(fields[5].getText().toString());
-            myRef2.child("date").setValue(getDate2());
-            myRef2.child("mtype").setValue(mType.toString());
-            //myRef.child("notes").setValue(fields[6].getText().toString());
-            finish();*/
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            if(doesExist){
+                Toast.makeText(this, "Food name already exists",
+                        Toast.LENGTH_LONG).show();
+                return;
+            }
+            else{
+                DatabaseReference myRef2 =  myRef.child(fields[0].getText().toString());
+
+                Map<String,Object> taskMap = new HashMap<>();
+                taskMap.put("fname", fields[0].getText().toString());
+                taskMap.put("ssize", fields[1].getText().toString());
+                taskMap.put("nserv", fields[2].getText().toString());
+                taskMap.put("fats", fields[3].getText().toString());
+                taskMap.put("prots", fields[4].getText().toString());
+                taskMap.put("carbs", fields[5].getText().toString());
+                taskMap.put("date", getDate2());
+                taskMap.put("mtype", mType.toString());
+
+                myRef2.updateChildren(taskMap);
+
+                Map<String,Object> taskMap2 = new HashMap<>();
+                taskMap2.put("fname", fields[0].getText().toString());
+                taskMap2.put("ssize", fields[1].getText().toString());
+                taskMap2.put("nserv", fields[2].getText().toString());
+                taskMap2.put("fats", fields[3].getText().toString());
+                taskMap2.put("prots", fields[4].getText().toString());
+                taskMap2.put("carbs", fields[5].getText().toString());
+
+                preload.child(taskMap2.get("fname").toString()).updateChildren(taskMap);
+
+                finish();
+            }
+
         }
     }
     //makes sure form is filled out
@@ -111,6 +138,7 @@ public class AddFood extends AppCompatActivity {
         EditText prots = findViewById(R.id.nfood_prots);
         EditText carbs = findViewById(R.id.nfood_carbs);
         EditText notes = findViewById(R.id.nfood_notes);
+
 
         EditText[] fields = {fname,ssize,nserv,fats,prots,carbs};
 

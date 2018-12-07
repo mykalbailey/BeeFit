@@ -24,12 +24,15 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    public static LoginActivity instance = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        instance=this;
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -91,5 +94,10 @@ public class LoginActivity extends AppCompatActivity {
     public void SignUp(){
         Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
+    }
+    @Override
+    public void finish() {
+        super.finish();
+        instance = null;
     }
 }
