@@ -1,6 +1,6 @@
 # Assignment 3 - Topic: ViewSwitcher 
 
-Viewswitcher is a subclass of Viewanimator which is used to switch between views. It is mainly useful for animating transitions on the screen.  View Switcher has a smooth transition which makes it easy to add different transitions effects.
+Viewswitcher is a subclass of Viewanimator which is used to switch between views. It is mainly useful for animating transitions on the screen.  View Switcher has a smooth transition which makes it easy to add transitions effects.  
 
 ## History
 
@@ -20,6 +20,11 @@ The following method adds a view to the viewSwitcher with layout parameters.
 ```
 addView(View child, int index, ViewGroup.LayoutParamsparams)
 ```
+The Following method retrieves the view that is currently displayed.
+```
+getCurrentView()
+```
+
 the following method returns the view that is to be viewed next.
 ```
 getNextView()
@@ -114,10 +119,6 @@ public class MainActivity extends AppCompatActivity {
 ## Authors
 
 * **Mykal Bailey**
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 
