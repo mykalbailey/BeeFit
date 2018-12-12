@@ -75,7 +75,17 @@ public class diaryFragment extends android.support.v4.app.Fragment {
 
                     intent = new Intent(myFragView.getContext(), DiaryDetails.class);
                     Bundle b = new Bundle();
-
+                    /*
+                    intent.putExtra("fname",obj.fname);
+                    intent.putExtra("date",obj.date);
+                    intent.putExtra("time",obj.time);
+                    intent.putExtra("mtype",obj.mType);
+                    intent.putExtra("nserv",obj.noServ);
+                    intent.putExtra("ssize",obj.sSize);
+                    intent.putExtra("prots",obj.prots);
+                    intent.putExtra("carbs",obj.carbs);
+                    intent.putExtra("fats",obj.fats);
+                    */
                     b.putSerializable("data",obj);
 
                     intent.putExtras(b);

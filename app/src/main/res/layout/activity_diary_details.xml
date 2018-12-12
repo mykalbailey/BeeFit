@@ -20,7 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ddFname"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/ddMtype"
@@ -39,7 +40,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="ddDate" />
+                android:text="ddDate"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/ddTime"
@@ -47,7 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="ddTime"
-                android:textAlignment="textEnd" />
+                android:textAlignment="textEnd"
+                android:textSize="18sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -59,7 +62,8 @@
                 android:id="@+id/textView29"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="18sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -77,19 +81,22 @@
                     android:id="@+id/ddProts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:id="@+id/ddCarbs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:id="@+id/ddFats"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textSize="18sp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -103,14 +110,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="TextView"
-                    android:textAlignment="textEnd" />
+                    android:textAlignment="textEnd"
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:id="@+id/ddnserv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="TextView"
-                    android:textAlignment="textEnd" />
+                    android:textAlignment="textEnd"
+                    android:textSize="18sp"/>
             </LinearLayout>
         </LinearLayout>
 

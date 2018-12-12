@@ -39,9 +39,13 @@ public class progressFragment extends android.support.v4.app.Fragment {
     float pFats = 0;
     float pProts = 0;
 
-    private String[] fats = {"Fats","25%","25%"};
-    private String[] carbs = {"Carbs","25%","30%"};
-    private String[] prots = {"Protein","50%","45%"};
+    private String[] fats = {"Fats","0%","25%"};
+    private String[] carbs = {"Carbs","0%","30%"};
+    private String[] prots = {"Protein","0%","45%"};
+
+    String fatsGoalPerc = "0%";
+    String carbsGoalPerc = "0%";
+    String protsGoalPerc = "0%";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,8 +82,68 @@ public class progressFragment extends android.support.v4.app.Fragment {
         //PieChart pChart = (PieChart) myFragView.findViewById(R.id.pChart);
         //List<PieEntry> entries = new ArrayList<>();
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        final DatabaseReference fbdb = FirebaseDatabase.getInstance().getReference(currentUser.getUid()).child("profile");
+        fbdb.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                if(dataSnapshot.getKey().toString().equals("Goal")){
+                    if(dataSnapshot.getValue().toString().equals("Gain")){
+                        String fatsGoalPerc = "20%";
+                        String carbsGoalPerc = "45%";
+                        String protsGoalPerc = "35%";
+                    }
+                    if(dataSnapshot.getValue().toString().equals("Lose")){
+                        String fatsGoalPerc = "25%";
+                        String carbsGoalPerc = "30%";
+                        String protsGoalPerc = "45%";
+                    }
+                    if(dataSnapshot.getValue().toString().equals("Maintain")){
+                        String fatsGoalPerc = "25%";
+                        String carbsGoalPerc = "50%";
+                        String protsGoalPerc = "25%";
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                if(dataSnapshot.getKey().toString().equals("Goal")){
+                    if(dataSnapshot.getValue().toString().equals("Gain")){
+                        String fatsGoalPerc = "20%";
+                        String carbsGoalPerc = "45%";
+                        String protsGoalPerc = "35%";
+                    }
+                    if(dataSnapshot.getValue().toString().equals("Lose")){
+                        String fatsGoalPerc = "25%";
+                        String carbsGoalPerc = "30%";
+                        String protsGoalPerc = "45%";
+                    }
+                    if(dataSnapshot.getValue().toString().equals("Maintain")){
+                        String fatsGoalPerc = "25%";
+                        String carbsGoalPerc = "50%";
+                        String protsGoalPerc = "25%";
+                    }
+                }
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         FirebaseDatabase.getInstance().getReference(currentUser.getUid()).child("foods").addChildEventListener(new ChildEventListener() {
             @Override

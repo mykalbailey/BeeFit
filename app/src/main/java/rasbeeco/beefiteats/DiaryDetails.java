@@ -28,6 +28,17 @@ public class DiaryDetails extends AppCompatActivity {
                 .getSerializableExtra("data");
 
         System.out.println(obj);
+
+        fname.setText(obj.fname);
+        date.setText("Date: " + obj.date);
+        time.setText("Time: " + obj.time);
+        mtype.setText(obj.mType);
+        nserv.setText("No of servings: "+Integer.toString(obj.noServ));
+        ssize.setText("Serving Size: " + Integer.toString(obj.sSize));
+        prots.setText("Protein: "+Integer.toString(obj.prots)+"g");
+        carbs.setText("Carbs: "+Integer.toString(obj.carbs)+"g");
+        fats.setText("Fats: "+Integer.toString(obj.fats)+"g");
+
         /*
         fname.setText(obj.fname);
         date.setText(obj.date);

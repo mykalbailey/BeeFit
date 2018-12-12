@@ -182,8 +182,9 @@ public class AddFood2 extends AppCompatActivity {
             }
             else{
                 String time = getTime();
+                String date2 = getDate2();
 
-                DatabaseReference myRef2 =  myRef.child(fields[0].getText().toString()+"@"+time);
+                DatabaseReference myRef2 =  myRef.child(fields[0].getText().toString()+": "+date2+"@"+time);
 
                 Map<String,Object> taskMap = new HashMap<>();
                 taskMap.put("fname", fields[0].getText().toString());
@@ -299,7 +300,8 @@ public class AddFood2 extends AppCompatActivity {
                 String mType= getIntent().getStringExtra("mtype");
 
                 String time = getTime();
-                DatabaseReference myRef2 =  myRef.child(RF.fname.toString()+"@"+time);
+                String date2 = getDate2();
+                DatabaseReference myRef2 =  myRef.child(RF.fname.toString()+": "+date2+"@"+time);
 
                 Map<String,Object> taskMap = new HashMap<>();
 

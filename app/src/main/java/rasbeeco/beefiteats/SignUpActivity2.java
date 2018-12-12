@@ -94,6 +94,9 @@ public class SignUpActivity2 extends AppCompatActivity {
                 }
             });
         }
+        if(mAuth.getCurrentUser() != null){
+            Done();
+        }
 
     }
     private void Done(){

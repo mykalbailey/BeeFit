@@ -58,4 +58,5 @@ public class DiaryObject implements Serializable{
       return str;
   }
 
+
 }
